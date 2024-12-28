@@ -15,35 +15,28 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean // 사용자 정의 보안
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults());
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/anonymous").hasRole("GUEST") // guest 만 들어갈 수 있도록,,,
+                        .requestMatchers("/anonymousContext", "/authentication").permitAll()
+                        .anyRequest()
+                        .authenticated())
+                .formLogin(Customizer.withDefaults())
+                .anonymous(anonymous -> anonymous
+                        .principal("guest") // default : anonymous
+                        .authorities("ROLE_GUEST")
+                );
 
         return http.build();
     }
 
     @Bean
     public UserDetailsService userDetailsService(){
-        UserDetails user2 = User
-                .withUsername("user2")
-                .password("{noop}1111")
-                .roles("USER")
-                .build();
-
-        UserDetails user3 = User
-                .withUsername("user3")
-                .password("{noop}1111")
-                .roles("USER")
-                .build();
-
-        UserDetails user4 = User
-                .withUsername("user4")
-                .password("{noop}1111")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user2, user3, user4);
+        UserDetails user = User.withUsername("user").password("{noop}1111").roles("USER").build();
+        return  new InMemoryUserDetailsManager(user);
     }
+
 }
