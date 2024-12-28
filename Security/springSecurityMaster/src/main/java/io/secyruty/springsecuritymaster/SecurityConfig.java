@@ -15,35 +15,36 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    @Bean // 사용자 정의 보안
+    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
         http
-                .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
-                .formLogin(Customizer.withDefaults());
+                .authorizeHttpRequests( auth -> auth.anyRequest().authenticated())
+                .formLogin( form -> form
+                        .loginPage("/loginPage")
+                        .loginProcessingUrl("/loginProc")
+                        .defaultSuccessUrl("/",true)
+                        .failureUrl("/login")
+                        .usernameParameter("userId")
+                        .passwordParameter("passwd")
+                        .successHandler((request, response, authentication) -> {
+                            System.out.println("authentication: " + authentication.getName());
+                            response.sendRedirect("/home");
+                        })
+                        .failureHandler((request, response, exception) -> {
+                            System.out.println("exception: " + exception.getMessage());
+                            response.sendRedirect("/login");
+                        })
+                        .permitAll()
+                );
 
         return http.build();
     }
 
     @Bean
     public UserDetailsService userDetailsService(){
-        UserDetails user2 = User
-                .withUsername("user2")
-                .password("{noop}1111")
-                .roles("USER")
-                .build();
-
-        UserDetails user3 = User
-                .withUsername("user3")
-                .password("{noop}1111")
-                .roles("USER")
-                .build();
-
-        UserDetails user4 = User
-                .withUsername("user4")
-                .password("{noop}1111")
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user2, user3, user4);
+        UserDetails user = User.withUsername("user").password("{noop}1111").roles("USER").build();
+        return  new InMemoryUserDetailsManager(user);
     }
+
 }
