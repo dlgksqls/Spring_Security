@@ -15,4 +15,9 @@ public class IndexController {
     public String login(){
         return "loginPage";
     }
+
+    @GetMapping("/logoutSuccess")
+    public String logoutSuccess(){
+        return "logoutSuccess";
+    }
 }
