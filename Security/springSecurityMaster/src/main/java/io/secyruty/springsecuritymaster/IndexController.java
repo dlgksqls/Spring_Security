@@ -1,20 +1,28 @@
 package io.secyruty.springsecuritymaster;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@Slf4j
 public class IndexController {
 
-    @GetMapping("/")
-    public String index(String customParam) {
+    @Autowired
+    SecurityContextService service;
 
-        if (customParam != null){
-            return "customPage";
-        }
-        else {
-            return "index";
-        }
+    @GetMapping("/")
+    public String index() {
+        SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        log.info("authentication = {}", authentication);
+
+        service.securityContext();
+        return "index";
     }
 
     @GetMapping("/loginPage")
