@@ -12,17 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class IndexController {
 
-    @Autowired
-    SecurityContextService service;
+//    @GetMapping("/")
+//    public String index() {
+//        SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
+//        Authentication authentication = securityContext.getAuthentication();
+//        log.info("authentication = {}", authentication);
+//
+//        return "index";
+//    }
 
     @GetMapping("/")
-    public String index() {
-        SecurityContext securityContext = SecurityContextHolder.getContextHolderStrategy().getContext();
-        Authentication authentication = securityContext.getAuthentication();
-        log.info("authentication = {}", authentication);
+    public Authentication index(Authentication authentication) {
 
-        service.securityContext();
-        return "index";
+        return authentication;
     }
 
     @GetMapping("/loginPage")
