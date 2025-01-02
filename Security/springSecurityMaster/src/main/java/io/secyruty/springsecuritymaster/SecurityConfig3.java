@@ -1,4 +1,4 @@
-//package io.secyruty.springsecuritymaster;
+package io.secyruty.springsecuritymaster;//package io.secyruty.springsecuritymaster;
 //
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -23,19 +23,14 @@
 //
 //@EnableWebSecurity
 //@Configuration
-//public class SecurityConfig2 {
+//public class SecurityConfig3 {
 //
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http, AuthenticationManagerBuilder builder, AuthenticationConfiguration configuration) throws Exception {
 //
-//        // 자식 AuthenticationManagerBuilder 와 ProviderManager
 //        AuthenticationManagerBuilder managerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-//        managerBuilder.authenticationProvider(customAuthenticationProvider()); //
-//
-//        // 부모 AuthenticationManagerBuilder 와 ProviderManager
-//        ProviderManager providerManager = (ProviderManager)configuration.getAuthenticationManager(); // 부모 parent
-//        providerManager.getProviders().remove(0);
-//        builder.authenticationProvider(new DaoAuthenticationProvider()); // 부모 빌더에 있는 부모 parent 에 추가한다
+//        managerBuilder.authenticationProvider(customAuthenticationProvider());
+//        managerBuilder.authenticationProvider(customAuthenticationProvider2());
 //
 //        http
 //                .authorizeHttpRequests(auth -> auth
@@ -48,6 +43,11 @@
 //    @Bean
 //    public AuthenticationProvider customAuthenticationProvider(){
 //        return new CustomAuthenticationProvider();
+//    }
+//
+//    @Bean
+//    public AuthenticationProvider customAuthenticationProvider2(){
+//        return new CustomAuthenticationProvider2();
 //    }
 //
 //    @Bean
