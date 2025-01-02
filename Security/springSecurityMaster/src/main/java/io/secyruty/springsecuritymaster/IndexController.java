@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     @GetMapping("/")
     public String index(){
-        return "AuthenticationManager 학습";
+        return "UserDetails 학습";
     }
 }
