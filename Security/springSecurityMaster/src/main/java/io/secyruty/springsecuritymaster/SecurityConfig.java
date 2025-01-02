@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .formLogin(Customizer.withDefaults())
 //                .authenticationProvider(new CustomAuthenticationProvider())
 //                .authenticationProvider(new CustomAuthenticationProvider2())
+//                .authenticationProvider(new CustomAuthenticationProvider3())
         ;
         return http.build();
     }
