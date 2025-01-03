@@ -19,24 +19,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-                .authorizeHttpRequests( auth -> auth.anyRequest().authenticated())
-                .formLogin( form -> form
-                        .loginPage("/loginPage")
-                        .loginProcessingUrl("/loginProc")
-                        .defaultSuccessUrl("/",true)
-                        .failureUrl("/login")
-                        .usernameParameter("userId")
-                        .passwordParameter("passwd")
-                        .successHandler((request, response, authentication) -> {
-                            System.out.println("authentication: " + authentication.getName());
-                            response.sendRedirect("/home");
-                        })
-                        .failureHandler((request, response, exception) -> {
-                            System.out.println("exception: " + exception.getMessage());
-                            response.sendRedirect("/login");
-                        })
-                        .permitAll()
-                );
+                .authorizeHttpRequests( auth -> auth
+                        .requestMatchers("/login", "/invalidSessionUrl", "/expiredUrl").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(Customizer.withDefaults())
+                .sessionManagement(session -> session
+                        .invalidSessionUrl("/invalidSessionUrl")
+                        .maximumSessions(1)
+                        .maxSessionsPreventsLogin(false)
+                        .expiredUrl("/expiredUrl")
+                )
+                ;
 
         return http.build();
     }
