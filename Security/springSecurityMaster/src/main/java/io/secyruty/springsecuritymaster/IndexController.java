@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     @GetMapping("/")
     public String index(){
-        return "SecurityContextRepository_SecurityContextHolderFilter 학습";
+        return "Session 학습";
     }
 }
