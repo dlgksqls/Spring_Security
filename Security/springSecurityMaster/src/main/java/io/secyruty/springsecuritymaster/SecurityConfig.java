@@ -20,15 +20,9 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests( auth -> auth
-                        .requestMatchers("/login", "/invalidSessionUrl", "/expiredUrl").permitAll()
+                        .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
-                .sessionManagement(session -> session
-                        .invalidSessionUrl("/invalidSessionUrl")
-                        .maximumSessions(1)
-                        .maxSessionsPreventsLogin(false)
-                        .expiredUrl("/expiredUrl")
-                )
                 ;
 
         return http.build();

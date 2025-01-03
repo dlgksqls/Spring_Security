@@ -21,13 +21,4 @@ public class IndexController {
         return "loginPage";
     }
 
-    @GetMapping("/invalidSessionUrl")
-    public String invalidSessionUrl(){
-        return "invalidSessionUrl";
-    }
-
-    @GetMapping("/expiredUrl")
-    public String expiredUrl(){
-        return "expiredUrl";
-    }
 }
