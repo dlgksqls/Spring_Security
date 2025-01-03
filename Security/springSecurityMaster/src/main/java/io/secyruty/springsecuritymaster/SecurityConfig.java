@@ -23,6 +23,8 @@ public class SecurityConfig {
                         .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
+                .sessionManagement(session -> session
+                        .sessionFixation().changeSessionId())
                 ;
 
         return http.build();
