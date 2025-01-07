@@ -20,7 +20,6 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests( auth -> auth
-                        .requestMatchers("/login").permitAll()
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 ;
