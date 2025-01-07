@@ -1,0 +1,21 @@
+### GET request with a header
+GET http://127.0.0.1:8080
+Accept: application/json
+
+### Send POST request with json body
+POST http://127.0.0.1:8080/csrf
+Content-Type: application/json
+
+### Send POST request with json body
+POST http://127.0.0.1:8080/csrf
+Content-Type: application/x-www-form-urlencoded
+
+_csrf = 3IXGcbLU7GV4q_SgCEKXwfJrpuqpfrX_piBpCcuH0Qw-aynL5Lf_QNa1jwZVmMPGO2-j9cIKi4vPRozSlBdaavLjtTwPXhCq
+
+### Send POST request with json body
+POST http://127.0.0.1:8080/ignoreCsrf
+Content-Type: application/json
+
+### GET request with a header
+GET http://127.0.0.1:8080/csrfToken
+Accept: application/json
