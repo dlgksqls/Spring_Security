@@ -14,7 +14,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(securedEnabled = true, jsr250Enabled = true)
 @Configuration
 public class SecurityConfig {
 
@@ -23,10 +23,9 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().authenticated())
+                        .anyRequest().permitAll())
                 .formLogin(Customizer.withDefaults())
-                .csrf(AbstractHttpConfigurer::disable)
-                ;
+                .csrf(AbstractHttpConfigurer::disable);
 
         return http.build();
     }
