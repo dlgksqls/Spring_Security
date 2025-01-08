@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     @GetMapping("/")
     public String index(){
-        return "Same site 학습";
+        return "@PreAuthorize_@PostAuthorize 학습";
     }
 }
