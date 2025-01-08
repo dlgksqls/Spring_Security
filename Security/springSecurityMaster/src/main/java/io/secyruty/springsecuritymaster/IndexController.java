@@ -6,19 +6,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class IndexController {
+
     @GetMapping("/")
-    public Authentication index(Authentication authentication){
-        return authentication;
+    public String index(){
+        return "index";
     }
 
-    @GetMapping("/home")
-    public String home(){
-        return "home";
+    @GetMapping("/user")
+    public String user(){
+        return "user";
     }
 
-    @GetMapping("/loginPage")
-    public String login(){
-        return "loginPage";
+    @GetMapping("/db")
+    public String db(){
+        return "db";
+    }
+
+    @GetMapping("/admin")
+    public String admin(){
+        return "admin";
     }
 
 }
