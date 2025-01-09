@@ -23,8 +23,9 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests( auth -> auth
                         .requestMatchers("/user").hasRole("USER")
-                        .requestMatchers("db").access(new WebExpressionAuthorizationManager("hasRole('DB')"))
+                        .requestMatchers("/db").access(new WebExpressionAuthorizationManager("hasRole('DB')"))
                         .requestMatchers("/admin").hasAuthority("ROLE_ADMIN")
+                        .requestMatchers("/secure").access(new CustomAuthorizationManager())
                         .anyRequest().authenticated())
                 .formLogin(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
