@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     @GetMapping("/")
     public String index(){
-        return "RoleHierarchy 학습";
+        return "RequestMatcherDelegatingAuthorizationManager 응용 학습";
     }
 }
