@@ -1,6 +1,6 @@
-package io.secyruty.springsecuritymaster.method;
+package io.security.springsecuritymaster.method;
 
-import io.secyruty.springsecuritymaster.Account;
+import io.security.springsecuritymaster.Account;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.AuthorizationManager;

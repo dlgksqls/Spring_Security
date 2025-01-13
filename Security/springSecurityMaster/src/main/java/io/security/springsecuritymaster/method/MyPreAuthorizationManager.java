@@ -1,4 +1,4 @@
-package io.secyruty.springsecuritymaster.method;
+package io.security.springsecuritymaster.method;
 
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;

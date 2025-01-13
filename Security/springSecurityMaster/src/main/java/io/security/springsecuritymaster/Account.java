@@ -1,4 +1,4 @@
-package io.secyruty.springsecuritymaster;
+package io.security.springsecuritymaster;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
