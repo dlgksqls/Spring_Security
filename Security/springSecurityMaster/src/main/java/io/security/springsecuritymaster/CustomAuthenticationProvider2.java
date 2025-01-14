@@ -5,7 +5,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Component;
 
+@Component
 public class CustomAuthenticationProvider2 implements AuthenticationProvider {
 
     private final AuthenticationEventPublisher authenticationEventPublisher;
