@@ -29,7 +29,6 @@ public class MethodSecurityConfig {
     }
 
     @Bean
-
     @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
     public Advisor pointCutAdvisor2(){
 
