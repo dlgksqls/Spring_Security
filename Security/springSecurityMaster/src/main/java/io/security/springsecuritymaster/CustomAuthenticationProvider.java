@@ -1,5 +1,6 @@
 package io.security.springsecuritymaster;
 
+import org.springframework.security.authentication.AuthenticationEventPublisher;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,23 +9,26 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
-//@Component
-//@RequiredArgsConstructor
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
-//    private final ApplicationContext applicationEventPublisher;
+    private final AuthenticationEventPublisher authenticationEventPublisher;
+
+    public CustomAuthenticationProvider(AuthenticationEventPublisher authenticationEventPublisher) {
+        this.authenticationEventPublisher = authenticationEventPublisher;
+    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        if(!authentication.getName().equals("user")) {
+        if(authentication.getName().equals("admin")) {
+            authenticationEventPublisher.publishAuthenticationFailure(new CustomException("CustomException"), authentication);
 
-//            applicationEventPublisher.publishEvent
-//                    (new AuthenticationFailureProviderNotFoundEvent(authentication, new BadCredentialsException("BadCredentialException")));
+            throw new CustomException("CustomException");
+        }else if(authentication.getName().equals("db")){
+            authenticationEventPublisher.publishAuthenticationFailure(new DefaultAuthenticationException("DefaultAuthenticationException"), authentication);
 
-            throw new BadCredentialsException("BadCredentialsException");
+            throw new DefaultAuthenticationException("DefaultAuthenticationException");
         }
-
         UserDetails user = User.withUsername("user").password("{noop}1111").roles("USER").build();
         return new UsernamePasswordAuthenticationToken(user, user.getPassword(), user.getAuthorities());
     }
