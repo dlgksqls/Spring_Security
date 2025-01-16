@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     @GetMapping("/")
     public String index(){
-        return "다중보안설정 학습";
+        return "이중화설정 학습";
     }
 }
