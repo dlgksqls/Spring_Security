@@ -13,11 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @PostMapping("/signup")
-    public String signup(AccountDto accountDto){
+    public String signup(AccountDto accountDto) {
+
         ModelMapper mapper = new ModelMapper();
         Account account = mapper.map(accountDto, Account.class);
         account.setPassword(passwordEncoder.encode(accountDto.getPassword()));
