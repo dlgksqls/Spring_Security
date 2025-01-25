@@ -1,7 +1,12 @@
 package io.security.project.users.controller;
 
 import io.security.project.domain.dto.AccountDto;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,4 +30,13 @@ public class RestApiController {
         return accountDto;
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response){
+        Authentication authentication = SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication(); // 1. 인증 객체를 가져온다
+        if (authentication != null){
+            new SecurityContextLogoutHandler().logout(request, response, authentication); // 존재한다면 로그아웃
+        }
+
+        return "logout";
+    }
 }

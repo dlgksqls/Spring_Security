@@ -1,5 +1,6 @@
 package io.security.project.security.configs;
 
+import io.security.project.security.dsl.RestApiDsl;
 import io.security.project.security.entrypoint.RestAuthenticationEntryPoint;
 import io.security.project.security.filters.RestAuthenticationFilter;
 import io.security.project.security.handler.*;
@@ -79,25 +80,30 @@ public class SecurityConfig {
                         .requestMatchers("/api/manager").hasAuthority("ROLE_MANAGER")
                         .requestMatchers("/api/admin").hasAuthority("ROLE_ADMIN")
                         .anyRequest().authenticated())
-                .csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(restAuthenticationFilter(http, authenticationManager), UsernamePasswordAuthenticationFilter.class)
+//                .csrf(AbstractHttpConfigurer::disable)
+//                .addFilterBefore(restAuthenticationFilter(http, authenticationManager), UsernamePasswordAuthenticationFilter.class)
                 .authenticationManager(authenticationManager)
                 .exceptionHandling(exception -> exception
                         .authenticationEntryPoint(new RestAuthenticationEntryPoint()) // 로그인 실패 시
                         .accessDeniedHandler(new RestAccessDeniedHandler())) // 권한 없을 시
+                .with(new RestApiDsl<>(), restDsl -> restDsl
+                        .restSuccessHandler(restSuccessHandler)
+                        .restFailureHandler(restFailureHandler)
+                        .loginPage("/api/login")
+                        .loginProcessingUrl("/api/login")) // Dsl 사용
         ;
         return http.build();
     }
 
-    private RestAuthenticationFilter restAuthenticationFilter(HttpSecurity http, AuthenticationManager authenticationManager) {
-
-        RestAuthenticationFilter restAuthenticationFilter = new RestAuthenticationFilter(http);
-        restAuthenticationFilter.setAuthenticationManager(authenticationManager);
-        restAuthenticationFilter.setAuthenticationSuccessHandler(restSuccessHandler);
-        restAuthenticationFilter.setAuthenticationFailureHandler(restFailureHandler);
-//        restAuthenticationFilter.setSecurityContextRepository(new DelegatingSecurityContextRepository(
-//                new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository()));
-
-        return restAuthenticationFilter;
-    }
+//    private RestAuthenticationFilter restAuthenticationFilter(HttpSecurity http, AuthenticationManager authenticationManager) {
+//
+//        RestAuthenticationFilter restAuthenticationFilter = new RestAuthenticationFilter(http);
+//        restAuthenticationFilter.setAuthenticationManager(authenticationManager);
+//        restAuthenticationFilter.setAuthenticationSuccessHandler(restSuccessHandler);
+//        restAuthenticationFilter.setAuthenticationFailureHandler(restFailureHandler);
+////        restAuthenticationFilter.setSecurityContextRepository(new DelegatingSecurityContextRepository(
+////                new RequestAttributeSecurityContextRepository(), new HttpSessionSecurityContextRepository()));
+//
+//        return restAuthenticationFilter;
+//    }
 }
