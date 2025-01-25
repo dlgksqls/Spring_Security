@@ -40,8 +40,13 @@ public class RestAuthenticationProvider implements AuthenticationProvider {
         return new RestAuthenticationToken(account.getAuthorities(), account.getAccountDto(), null);
     }
 
+//    @Override
+//    public boolean supports(Class<?> authentication) {
+//        return authentication.isAssignableFrom(UsernamePasswordAuthenticationToken.class);
+//    }
+
     @Override
     public boolean supports(Class<?> authentication) {
-        return authentication.isAssignableFrom(UsernamePasswordAuthenticationToken.class);
+        return RestAuthenticationToken.class.isAssignableFrom(authentication); // RestAuthenticationToken 지원
     }
 }

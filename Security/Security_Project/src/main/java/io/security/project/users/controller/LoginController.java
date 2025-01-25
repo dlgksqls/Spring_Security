@@ -18,32 +18,25 @@ import java.io.IOException;
 @Controller
 public class LoginController {
 
-//    @GetMapping("/login")
-//    public String login() {
-//        return "login/login";
-//    }
-
-    @GetMapping("/login")
+    @GetMapping(value="/login")
     public String login(@RequestParam(value = "error", required = false) String error,
-                        @RequestParam(value = "exception", required = false) String exception, Model model)
-    {
-        model.addAttribute("error", error);
-        model.addAttribute("exception", exception);
+                        @RequestParam(value = "exception", required = false) String exception, Model model){
+        model.addAttribute("error",error);
+        model.addAttribute("exception",exception);
         return "login/login";
     }
 
-    @GetMapping("/api/login")
+    @GetMapping(value="/api/login")
     public String restLogin(){
         return "rest/login";
     }
 
-
-    @GetMapping("/signup")
+    @GetMapping(value="/signup")
     public String signup() {
         return "login/signup";
     }
 
-    @GetMapping("/logout")
+    @GetMapping(value = "/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContextHolderStrategy().getContext().getAuthentication();
         if (authentication != null) {
@@ -53,9 +46,9 @@ public class LoginController {
         return "redirect:/login";
     }
 
-    @GetMapping("/denied")
-    public String accessDenied(@RequestParam(value = "exception", required = false) String exception,
-                               @AuthenticationPrincipal AccountDto accountDto, Model model){
+    @GetMapping(value="/denied")
+    public String accessDenied(@RequestParam(value = "exception", required = false) String exception, @AuthenticationPrincipal AccountDto accountDto, Model model) {
+
         model.addAttribute("username", accountDto.getUsername());
         model.addAttribute("exception", exception);
 
