@@ -38,8 +38,7 @@ public class SecurityConfig {
 
         http
                 .authorizeHttpRequests(auth -> auth
-                        .anyRequest().access(authorizationManager)
-                )
+                        .anyRequest().access(authorizationManager))
 
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -79,10 +78,10 @@ public class SecurityConfig {
                         .authenticationEntryPoint(new RestAuthenticationEntryPoint())
                         .accessDeniedHandler(new RestAccessDeniedHandler()))
                 .with(new RestApiDsl<>(), restDsl -> restDsl
-                                            .restSuccessHandler(restSuccessHandler)
-                                            .restFailureHandler(restFailureHandler)
-                                            .loginPage("/api/login")
-                                            .loginProcessingUrl("/api/login"))
+                        .restSuccessHandler(restSuccessHandler)
+                        .restFailureHandler(restFailureHandler)
+                        .loginPage("/api/login")
+                        .loginProcessingUrl("/api/login"))
         ;
 
         return http.build();
